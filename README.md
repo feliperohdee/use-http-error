@@ -43,10 +43,10 @@ const customError = new HttpError(400, 'Invalid input parameters');
 ```typescript
 // Create error with context and headers
 const error = new HttpError(500, 'Internal Server Error', {
-	context: { errorCode: 'DB_CONNECTION_FAILED' },
-	headers: new Headers({
-		'retry-after': '30'
-	})
+    context: { errorCode: 'DB_CONNECTION_FAILED' },
+    headers: new Headers({
+        'retry-after': '30'
+    })
 });
 ```
 
@@ -103,13 +103,34 @@ console.log(HttpError.is(regularError)); // false
 ```typescript
 // Create from JSON
 const json = {
-	context: { foo: 'bar' },
-	message: 'Unauthorized Access',
-	stack: [],
-	status: 401
+    context: { foo: 'bar' },
+    message: 'Unauthorized Access',
+    stack: [],
+    status: 401
 };
 
 const error = HttpError.fromJson(json);
+```
+
+#### Quick Conversions
+
+```typescript
+// Convert to JSON directly
+const jsonError = HttpError.json(404);
+// or
+const jsonError = HttpError.json('Not Found', 404);
+// or
+const jsonError = HttpError.json(new Error('Custom error'), 500);
+
+// Convert to Response directly
+const response = HttpError.response(404);
+// or with custom message and status
+const response = HttpError.response('Service unavailable', 503);
+
+// Convert to string directly
+const errorString = HttpError.string(404); // "404 - Not Found"
+// or with custom message
+const errorString = HttpError.string('Invalid input', 400);
 ```
 
 ### Stack Trace Control
@@ -140,10 +161,10 @@ yarn test
 type Context = Record<string, any> | null;
 
 type Json = {
-	context: Context;
-	message: string;
-	stack: ErrorStackParser.StackFrame[];
-	status: number;
+    context: Context;
+    message: string;
+    stack: ErrorStackParser.StackFrame[];
+    status: number;
 };
 ```
 
@@ -151,8 +172,8 @@ type Json = {
 
 ```typescript
 type HttpErrorOptions = {
-	context?: Context;
-	headers?: Headers;
+    context?: Context;
+    headers?: Headers;
 };
 ```
 
