@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import util from './util.js';
+import util from './util';
 
 describe('/util', () => {
 	describe('toNumber', () => {

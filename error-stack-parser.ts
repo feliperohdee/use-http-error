@@ -1,4 +1,4 @@
-import util from './util.js';
+import util from './util';
 
 namespace ErrorStackParser {
 	export interface StackFrame {

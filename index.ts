@@ -1,4 +1,4 @@
-import errorStackParser, { ErrorStackParser } from './error-stack-parser.js';
+import errorStackParser, { ErrorStackParser } from './error-stack-parser';
 
 namespace HttpError {
 	export type Context = Record<string, any> | null;

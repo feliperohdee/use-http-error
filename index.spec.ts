@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import HttpError from './index.js';
+import HttpError from './index';
 
 HttpError.includeStack = false;
 

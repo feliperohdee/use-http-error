@@ -43,10 +43,10 @@ const customError = new HttpError(400, 'Invalid input parameters');
 ```typescript
 // Create error with context and headers
 const error = new HttpError(500, 'Internal Server Error', {
-    context: { errorCode: 'DB_CONNECTION_FAILED' },
-    headers: new Headers({
-        'retry-after': '30'
-    })
+	context: { errorCode: 'DB_CONNECTION_FAILED' },
+	headers: new Headers({
+		'retry-after': '30'
+	})
 });
 ```
 
@@ -103,10 +103,10 @@ console.log(HttpError.is(regularError)); // false
 ```typescript
 // Create from JSON
 const json = {
-    context: { foo: 'bar' },
-    message: 'Unauthorized Access',
-    stack: [],
-    status: 401
+	context: { foo: 'bar' },
+	message: 'Unauthorized Access',
+	stack: [],
+	status: 401
 };
 
 const error = HttpError.fromJson(json);
@@ -161,10 +161,10 @@ yarn test
 type Context = Record<string, any> | null;
 
 type Json = {
-    context: Context;
-    message: string;
-    stack: ErrorStackParser.StackFrame[];
-    status: number;
+	context: Context;
+	message: string;
+	stack: ErrorStackParser.StackFrame[];
+	status: number;
 };
 ```
 
@@ -172,8 +172,8 @@ type Json = {
 
 ```typescript
 type HttpErrorOptions = {
-    context?: Context;
-    headers?: Headers;
+	context?: Context;
+	headers?: Headers;
 };
 ```
 

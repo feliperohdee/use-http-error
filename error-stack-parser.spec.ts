@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import parseErrorStack from './error-stack-parser.js';
+import parseErrorStack from './error-stack-parser';
 
 describe('/error-stack-parser', () => {
 	it('should parse', () => {
