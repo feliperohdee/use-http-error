@@ -142,4 +142,39 @@ describe('/index', () => {
 
 		expect(error.toString()).toEqual('404 - Not Found');
 	});
+
+	it('should create HttpError with defaultContext', () => {
+		HttpError.setDefaultContext({ env: 'test' });
+		const error = new HttpError(500);
+
+		expect(error.context).toEqual({ env: 'test' });
+
+		// Clean up
+		HttpError.setDefaultContext(null);
+	});
+
+	it('should merge defaultContext with provided context', () => {
+		HttpError.setDefaultContext({ env: 'test', version: '1.0.0' });
+		const error = new HttpError(500, 'Error', {
+			context: { requestId: '123', env: 'prod' }
+		});
+
+		expect(error.context).toEqual({
+			env: 'prod', // overridden value
+			version: '1.0.0', // from defaultContext
+			requestId: '123' // from provided context
+		});
+
+		// Clean up
+		HttpError.setDefaultContext(null);
+	});
+
+	it('should handle null defaultContext', () => {
+		HttpError.setDefaultContext(null);
+		const error = new HttpError(500, 'Error', {
+			context: { requestId: '123' }
+		});
+
+		expect(error.context).toEqual({ requestId: '123' });
+	});
 });

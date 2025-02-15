@@ -15,6 +15,7 @@ const clamp = (value: number, min: number, max: number): number => {
 };
 
 class HttpError extends Error {
+	public static defaultContext: HttpError.Context = null;
 	public static includeStack: boolean = true;
 
 	public context?: HttpError.Context | null = null;
@@ -96,6 +97,10 @@ class HttpError extends Error {
 		}
 	}
 
+	static setDefaultContext(context: HttpError.Context): void {
+		HttpError.defaultContext = context;
+	}
+
 	constructor(
 		status: number,
 		message?: string,
@@ -107,7 +112,7 @@ class HttpError extends Error {
 		status = clamp(status, 400, 599);
 		super(message || HttpError.getDefaultMessage(status));
 
-		this.context = opts?.context;
+		this.context = { ...HttpError.defaultContext, ...opts?.context };
 		this.headers = opts?.headers || new Headers();
 		this.httpError = true;
 		this.status = status;
