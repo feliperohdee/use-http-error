@@ -15,13 +15,21 @@ const clamp = (value: number, min: number, max: number): number => {
 };
 
 class HttpError extends Error {
-	public static defaultContext: HttpError.Context = null;
-	public static includeStack: boolean = true;
+	private static defaultContext: HttpError.Context = null;
+	private static includeStack: boolean = true;
 
 	public context?: HttpError.Context | null = null;
 	public headers: Headers;
 	public httpError: boolean;
 	public status: number;
+
+	static setDefaultContext(context: HttpError.Context): void {
+		HttpError.defaultContext = context;
+	}
+
+	static setIncludeStack(includeStack: boolean): void {
+		HttpError.includeStack = includeStack;
+	}
 
 	static fromJson(obj: Partial<HttpError.Json>): HttpError {
 		const error = new HttpError(obj?.status || 500, obj?.message || 'HttpError', {
@@ -95,10 +103,6 @@ class HttpError extends Error {
 			default:
 				return 'Error';
 		}
-	}
-
-	static setDefaultContext(context: HttpError.Context): void {
-		HttpError.defaultContext = context;
 	}
 
 	constructor(

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import HttpError from './index';
 
-HttpError.includeStack = false;
+HttpError.setIncludeStack(false);
 
 describe('/index', () => {
 	it('should create an HttpError with default message', () => {
