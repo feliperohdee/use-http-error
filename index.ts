@@ -123,6 +123,10 @@ class HttpError extends Error {
 		this.name = 'HttpError';
 	}
 
+	setContext(context: HttpError.Context): void {
+		this.context = { ...this.context, ...context };
+	}
+
 	toJson(): HttpError.Json {
 		return {
 			context: this.context || null,

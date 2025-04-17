@@ -177,4 +177,14 @@ describe('/index', () => {
 
 		expect(error.context).toEqual({ requestId: '123' });
 	});
+
+	it('should set context to HttpError', () => {
+		const error = new HttpError(500, 'Error', {
+			context: { requestId: '123' }
+		});
+
+		expect(error.context).toEqual({ requestId: '123' });
+		error.setContext({ env: 'prod' });
+		expect(error.context).toEqual({ requestId: '123', env: 'prod' });
+	});
 });
